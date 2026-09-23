@@ -24,3 +24,33 @@ Se desarrolló un modelo matemático de *Scheduling Óptimo* en Python utilizand
 ---
 ### 📊 Dashboard de Resultados (Optimización de Varianza)
 ![Dashboard de Impacto](images/headcount_optimization_dashboard.png)
+
+
+### ⚙️ Optimization Engine Demo (API Input/Output)
+
+Para integrarse con los sistemas ERP de la planta (ej. SAP), el motor de optimización recibe las restricciones del turno y devuelve la secuenciación estabilizada.
+
+**Sample Request (cURL):**
+```bash
+curl -X 'POST' \
+  'http://<API_URL>/optimize_capacity' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "plant_id": "MX-01",
+  "target_volume": 15000,
+  "product_variants": 112,
+  "available_headcount": 45
+}'
+```
+
+**Optimization Response (JSON):**
+```json
+{
+  "status": "Optimal Solution Found",
+  "required_headcount": 38,
+  "labor_variance": 0.0,
+  "projected_savings": "22.7%",
+  "bottleneck_warning": null,
+  "execution_action": "Publish schedule to shop floor terminals"
+}
+```
